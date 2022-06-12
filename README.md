@@ -8,6 +8,10 @@ npm install simple-axios-router
 
 ## Router
 
+> **NOTE:** Do not add `/` at the end of any path, just add it at the beginning <br/> <br/>
+> Do this: `/posts/:id`<br/><br/>
+> Don't do this: `posts/:id/`
+
 ```
 import { Router } form 'simple-axios-router'
 ```
@@ -15,6 +19,8 @@ import { Router } form 'simple-axios-router'
 ```
 // available methods
 // get, post, put, patch, delete
+
+Router.setBaseUrl('Your base URL')
 
 Router.get('name', 'path').middleware([Auth, ...])
 ```
