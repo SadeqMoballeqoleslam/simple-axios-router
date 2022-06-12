@@ -34,13 +34,13 @@ or
 
 ```
 // resource routes
-Router.resource('posts')
+Router.resource('posts', '/prefix', [Middleware, ...])
 ```
 
 ## Axios
 
 ```
-import { axios } form 'axios-router'
+import { axios } form 'simple-axios-router'
 
 axios('posts.index')
     .then((res) => console.log(res))
