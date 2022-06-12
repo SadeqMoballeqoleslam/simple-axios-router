@@ -66,4 +66,28 @@ describe('Router class test', () => {
             assert.deepEqual(Router.route('posts.delete'), { method: 'delete', url: '/posts/:id', name: 'posts.delete', middleware: [] })
         })
     })
+
+    describe('setBaseUrl method', () => {
+        beforeEach(() => {
+            Router.deleteRoute()
+        })
+
+        it(`should set base url for each route`, () => {
+            let baseUrl = 'https://test.api.com/v1'
+
+            Router.setBaseUrl(baseUrl)
+
+            Router.get('test', '/test')
+
+            Router.group({ prefix: '/group' }, () => {
+                Router.post('test-group', '/test-group')
+            })
+
+            Router.resource('test-resource', '/resource')
+
+            assert.deepEqual(Router.route('test').url, baseUrl + '/test')
+            assert.deepEqual(Router.route('test-group').url, baseUrl + '/group/test-group')
+            assert.deepEqual(Router.route('test-resource').url, baseUrl + '/resource/test-resource')
+        })
+    })
 })

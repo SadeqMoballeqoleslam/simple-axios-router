@@ -4,6 +4,11 @@
  */
 class Router {
     #routes = []
+    #BASE_URL = ''
+
+    setBaseUrl(url) {
+        this.#BASE_URL = url
+    }
 
     get(name, url) {
         this.#setNewRoute(name, url, 'get')
@@ -56,8 +61,8 @@ class Router {
         return this
     }
 
-    resource(name, prefix = '/', middleware = []) {
-        prefix += name
+    resource(name, prefix = '', middleware = []) {
+        prefix = prefix + '/' + name
 
         this.group({ name, prefix, middleware }, () => {
             this.get('', '')
@@ -76,9 +81,13 @@ class Router {
 
     deleteRoute(route = null) {
         this.#routes = route == null ? [] : this.#routes.filter(value => route != value)
+
+        if (route == null) this.#BASE_URL = ''
     }
 
     #setNewRoute(name, url, method) {
+        url = this.#BASE_URL + url
+
         this.#routes.push({ name, url, method, middleware: [] })
     }
 
@@ -90,7 +99,8 @@ class Router {
 
                 route.middleware = route.middleware.concat(middleware)
 
-                route.url = prefix + route.url
+                let url = route.url.replace(this.#BASE_URL, '')
+                route.url = this.#BASE_URL + prefix + url
 
                 route.name = name + route.name
             }
