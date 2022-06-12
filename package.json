@@ -1,7 +1,7 @@
 {
   "name": "simple-axios-router",
   "version": "1.0.0",
-  "description": "This is a package for managing your API paths on the front end",
+  "description": "Manage API paths in the front-end",
   "main": "main.js",
   "directories": {
     "test": "test"
