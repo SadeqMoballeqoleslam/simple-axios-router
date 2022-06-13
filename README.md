@@ -64,9 +64,13 @@ axios(
 
 ```
 class Auth {
+     constructor(route) {
+        this.route = route
+    }
+
     // Must return true / false
-    onBeforeRequest(route) {
-        let {name, middleware, url, method} = route
+    onBeforeRequest() {
+        let { name, middleware, url, method } = this.route
 
         return true
     }
