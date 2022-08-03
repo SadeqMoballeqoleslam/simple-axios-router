@@ -27,18 +27,13 @@ class Service extends Middleware {
     }
 
     #setUrlParams(url, params) {
-        url = url.split("/")
+        let keys = Object.keys(params)
 
-        let newUrl = url.map(value => {
-            if (value.indexOf(this.#paramKey) >= 0) {
-                let key = value.replace(this.#paramKey, '')
-                return params[key];
-            } else {
-                return value
-            }
-        })
+        for (let key of keys) {
+            url = url.replace(this.#paramKey + key, params[key])
+        }
 
-        return newUrl.join('/')
+        return url
     }
 
     #sendRequest(axios) {

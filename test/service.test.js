@@ -11,13 +11,15 @@ describe('Service class test', () => {
         const id = 1
         const slug = 'title'
 
-        Router.get('test', 'test/:id/:slug')
+        Router.setBaseUrl('http://localhost:3000')
+
+        Router.get('test', '/test/:id/:slug')
 
         let route = new Service({
             name: 'test',
             params: { id, slug }
         }).getRoute()
 
-        assert.equal(route.url, `test/${id}/${slug}`)
+        assert.equal(route.url, `http://localhost:3000/test/${id}/${slug}`)
     })
 })
